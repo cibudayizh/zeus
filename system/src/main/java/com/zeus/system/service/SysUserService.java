@@ -1,8 +1,10 @@
 package com.zeus.system.service;
 
+import com.zeus.system.dto.UserLoginDto;
 import com.zeus.system.dto.UserRegisterDto;
 import com.zeus.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zeus.system.vo.UserVo;
 
 /**
 * @author Administrator
@@ -17,4 +19,11 @@ public interface SysUserService {
      * @return
      */
     Long userRegister(UserRegisterDto userRegisterDto);
+
+    /**
+     * 用户登录校验
+     * @param userLoginDto
+     * @return
+     */
+    String userLogin(UserLoginDto userLoginDto);
 }

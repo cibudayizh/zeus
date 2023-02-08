@@ -77,13 +77,13 @@ public class UserVo {
      * 账号状态（0正常 1停用）
      */
     @ApiModelProperty(value = "账号状态")
-    private String status;
+    private Integer status;
 
     /**
      * 删除标志（0代表存在 2代表删除）
      */
     @ApiModelProperty(value = "删除标志")
-    private String delFlag;
+    private Integer delFlag;
 
     /**
      * 最后登录IP
@@ -101,7 +101,7 @@ public class UserVo {
      * 创建者
      */
     @ApiModelProperty(value = "创建者")
-    private String createUser;
+    private Long createUser;
 
     /**
      * 创建时间
@@ -113,7 +113,7 @@ public class UserVo {
      * 更新者
      */
     @ApiModelProperty(value = "更新者")
-    private String updateUser;
+    private Long updateUser;
 
     /**
      * 更新时间

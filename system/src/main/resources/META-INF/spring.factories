@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+
+org.springframework.boot.SpringApplicationRunListener= \
+  com.zeus.system.banner.SpringApplicationBannerListener

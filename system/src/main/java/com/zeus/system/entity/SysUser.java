@@ -6,15 +6,18 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.zeus.system.entity.common.BaseEntity;
 import lombok.Data;
 
 /**
  * 用户信息表
+ * @author Administrator
  * @TableName sys_user
  */
 @TableName(value ="sys_user")
 @Data
-public class SysUser implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
     /**
      * 用户ID
      */
@@ -79,13 +82,13 @@ public class SysUser implements Serializable {
      * 帐号状态（0正常 1停用）
      */
     @TableField(value = "status")
-    private String status;
+    private Integer status;
 
     /**
-     * 删除标志（0代表存在 2代表删除）
+     * 删除标志（0代表存在 1代表删除）
      */
     @TableField(value = "del_flag")
-    private String delFlag;
+    private Integer delFlag;
 
     /**
      * 最后登录IP
@@ -98,36 +101,6 @@ public class SysUser implements Serializable {
      */
     @TableField(value = "login_date")
     private Date loginDate;
-
-    /**
-     * 创建者
-     */
-    @TableField(value = "create_user")
-    private String createUser;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    @TableField(value = "update_user")
-    private String updateUser;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    @TableField(value = "remark")
-    private String remark;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
