@@ -1,3 +1,4 @@
+
 server:
   port: 8888
   servlet:
@@ -8,15 +9,15 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: "jdbc:mysql://127.0.0.1:3306/zeus"
+    url: "jdbc:mysql://101.43.114.106:3306/zeus"
     username: root
-    password: 123456
+    password: zzh@123456
   redis:
     #数据库索引
     database: 0
-    host: 127.0.0.1
+    host: 101.43.114.106
     port: 6379
-    password: 123456
+    password: zzh@123456
     jedis:
       pool:
         #最大连接数
@@ -29,5 +30,3 @@ spring:
         min-idle: 0
         #连接超时时间
     timeout: 10000
-  profiles:
-    active: dev
