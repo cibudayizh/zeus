@@ -1,0 +1,13 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  application:
+    name: system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: "jdbc:mysql://101.43.114.106:3306/zeus"
+    username: root
+    password: zzh@123456
