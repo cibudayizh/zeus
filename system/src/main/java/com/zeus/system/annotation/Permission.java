@@ -12,7 +12,8 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NotRequired {
-    boolean required() default true;
+public @interface Permission {
+//    是否需要校验权限 默认true
+    boolean checkPermission() default true;
 }
 

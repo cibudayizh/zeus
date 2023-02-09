@@ -3,6 +3,8 @@ package com.zeus.system.handler;
 
 
 import com.zeus.system.exception.BusinessException;
+import com.zeus.system.exception.ForbiddenException;
+import com.zeus.system.exception.ZeusException;
 import com.zeus.system.vo.common.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +17,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -24,8 +27,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  *
  * @author zhuzihang
  */
-@ConditionalOnClass(ResponseBodyAdvice.class)
+@RestControllerAdvice
 @Slf4j
+@ConditionalOnClass(ResponseBodyAdvice.class)
 public class GlobalExceptionHandle {
 
     /**
@@ -56,7 +60,17 @@ public class GlobalExceptionHandle {
         return new ResponseEntity<>(new ResultVO<>(ex.getCode(), ex.getMessage()), HttpStatus.OK);
     }
 
-
+    /**
+     * Zeus全局异常
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = ZeusException.class)
+    public ResponseEntity<Object> handleBusinessException(ZeusException ex) {
+        log.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(new ResultVO<>(ResultVO.EXCEPTION.getCode(), ex.getMessage()), HttpStatus.OK);
+    }
 
     /**
      * 文件超出最大上传限制
@@ -85,8 +99,9 @@ public class GlobalExceptionHandle {
             String paramName = fieldError.getField();
             String errMsg = fieldError.getDefaultMessage();
             String messageLog = "参数{".concat(paramName).concat("}").concat(errMsg);
-            if (log.isInfoEnabled())
+            if (log.isInfoEnabled()) {
                 log.info("{} -> {}", messageLog, fieldError);
+            }
             return new ResponseEntity<>(new ResultVO<>(ResultVO.PARAM_INVALID.getCode(), errMsg), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new ResultVO<>(ResultVO.PARAM_INVALID.getCode(), ex.getMessage()),
@@ -115,4 +130,14 @@ public class GlobalExceptionHandle {
         return new ResponseEntity<>(new ResultVO<>(ResultVO.EXCEPTION.getCode(), ResultVO.EXCEPTION.getMessage()), HttpStatus.OK);
     }
 
+    /**
+     * Token无效
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = ForbiddenException.class)
+    public ResponseEntity<Object> handleTokenNotValidException(ForbiddenException ex) {
+        return new ResponseEntity<>(new ResultVO<>(ResultVO.FORBIDDEN.getCode(), ex.getMessage()), HttpStatus.OK);
+    }
 }

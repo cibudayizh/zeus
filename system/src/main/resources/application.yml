@@ -31,3 +31,7 @@ spring:
     timeout: 10000
   profiles:
     active: dev
+#  token密钥
+  secret: asdfzcxzcv
+#  token过期时间 毫秒
+  expired: 600000

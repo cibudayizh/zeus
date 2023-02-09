@@ -48,4 +48,9 @@ public class BaseEntity implements Serializable {
     @TableField(value = "remark")
     private String remark;
 
+    /**
+     * 租户id
+     */
+    @TableField(value = "tenant_id")
+    private Long tenantId;
 }

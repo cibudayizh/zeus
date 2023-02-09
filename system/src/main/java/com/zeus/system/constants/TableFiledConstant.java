@@ -26,4 +26,8 @@ public class TableFiledConstant {
      * 更新时间
      */
     public final static String UPDATE_TIME ="update_time";
+    /**
+     * 租户id
+     */
+    public final static String TENANT_ID ="tenant_id";
 }
