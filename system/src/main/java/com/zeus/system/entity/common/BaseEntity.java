@@ -53,4 +53,10 @@ public class BaseEntity implements Serializable {
      */
     @TableField(value = "tenant_id")
     private Long tenantId;
+
+    /**
+     * 删除标记
+     */
+    @TableField(value = "del_flag")
+    private Integer delFlag;
 }

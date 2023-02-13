@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeus.system.mapper.SysMenuApiMapper">
+
+    <resultMap id="BaseResultMap" type="com.zeus.system.entity.SysMenuApi">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="methods" column="methods" jdbcType="VARCHAR"/>
+            <result property="scheme" column="scheme" jdbcType="VARCHAR"/>
+            <result property="multipartFormData" column="multipart_form_data" jdbcType="INTEGER"/>
+            <result property="logFlag" column="log_flag" jdbcType="INTEGER"/>
+            <result property="logHideFlag" column="log_hide_flag" jdbcType="INTEGER"/>
+            <result property="tag" column="tag" jdbcType="VARCHAR"/>
+            <result property="serviceName" column="service_name" jdbcType="VARCHAR"/>
+            <result property="innerUrl" column="inner_url" jdbcType="VARCHAR"/>
+            <result property="outerUrlPrefix" column="outer_url_prefix" jdbcType="VARCHAR"/>
+            <result property="outerUrl" column="outer_url" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="BIGINT"/>
+            <result property="createOrg" column="create_org" jdbcType="BIGINT"/>
+            <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,code,methods,
+        scheme,multipart_form_data,log_flag,
+        log_hide_flag,tag,service_name,
+        inner_url,outer_url_prefix,outer_url,
+        create_user,create_time,update_user,
+        update_time,remark,tenant_id,
+        create_org,del_flag
+    </sql>
+</mapper>
