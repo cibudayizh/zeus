@@ -43,7 +43,7 @@ public class SysUserServiceImpl implements SysUserService{
      * 过期时间 xx毫秒
      */
     @Value("${token.expired}")
-    private long timeOut;
+    private Integer timeOut;
 
     @Override
     public Long userRegister(UserRegisterDto userRegisterDto) {
@@ -82,7 +82,7 @@ public class SysUserServiceImpl implements SysUserService{
         //生成token
         String token = zeusJwtUtil.sign(sysUser.getId(), sysUser.getTenantId());
         String userTokenId = USER_TOKEN_PREFIX.concat(String.valueOf(sysUser.getId()));
-        redisUtil.setEx(userTokenId,token,timeOut, TimeUnit.MILLISECONDS);
+        redisUtil.setCacheObject(userTokenId,token,timeOut, TimeUnit.MILLISECONDS);
         return token;
     }
 }

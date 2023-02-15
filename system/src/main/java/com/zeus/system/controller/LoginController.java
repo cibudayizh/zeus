@@ -44,7 +44,7 @@ public class LoginController {
 
     @GetMapping("/redis/{key}/{value}")
     public ResultVO<Boolean> redisTest(@PathVariable String key, @PathVariable String value) {
-        redisUtil.set(key, value);
+        redisUtil.setCacheObject(key, value);
         return new ResultVO<>(redisUtil.hasKey(key));
     }
 }

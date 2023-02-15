@@ -66,7 +66,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         //判断redis中该用户token是否存在
         if(redisUtil.hasKey(userTokenId)){
             //存在判断redis中token和现有token是否一致 禁止多端登录 后续若允许多端登录可以将key设置为不同
-            String userRedisToken = redisUtil.get(userTokenId);
+            String userRedisToken = redisUtil.getCacheObject(userTokenId);
             if(!token.equals(userRedisToken)){
                 //两个token 不一致返回无权限
                 throw new ForbiddenException(ResultVO.FORBIDDEN.getCode());
