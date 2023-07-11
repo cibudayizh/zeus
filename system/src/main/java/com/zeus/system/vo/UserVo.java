@@ -1,6 +1,5 @@
 package com.zeus.system.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -80,12 +79,6 @@ public class UserVo {
     private Integer status;
 
     /**
-     * 删除标志（0代表存在 2代表删除）
-     */
-    @ApiModelProperty(value = "删除标志")
-    private Integer delFlag;
-
-    /**
      * 最后登录IP
      */
     @ApiModelProperty(value = "最后登录IP")
@@ -98,32 +91,8 @@ public class UserVo {
     private Date loginDate;
 
     /**
-     * 创建者
+     * 用户token
      */
-    @ApiModelProperty(value = "创建者")
-    private Long createUser;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    @ApiModelProperty(value = "更新者")
-    private Long updateUser;
-
-    /**
-     * 更新时间
-     */
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    @ApiModelProperty(value = "备注")
-    private String remark;
+    @ApiModelProperty(value = "用户token")
+    private String token;
 }

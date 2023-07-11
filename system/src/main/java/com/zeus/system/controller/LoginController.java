@@ -5,7 +5,6 @@ import com.zeus.system.dto.UserLoginDto;
 import com.zeus.system.dto.UserRegisterDto;
 import com.zeus.system.service.SysUserService;
 import com.zeus.system.utils.RedisUtil;
-import com.zeus.system.vo.UserVo;
 import com.zeus.system.vo.common.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @description
  */
 @RestController
-@RequestMapping("/login/v1")
+@RequestMapping("/login")
 @Api(tags = "登录验证api")
 public class LoginController {
 
@@ -29,14 +28,14 @@ public class LoginController {
     private RedisUtil redisUtil;
 
     @ApiOperation(value = "用户登录")
-    @PostMapping("/login")
+    @PostMapping("/v1/login")
     @Permission(checkPermission = false)
     public ResultVO<String> login(UserLoginDto userLoginDto) {
         return new ResultVO<>(sysUserService.userLogin(userLoginDto));
     }
 
     @ApiOperation(value = "用户注册")
-    @PostMapping("/register")
+    @PostMapping("/v1/register")
     @Permission(checkPermission = false)
     public ResultVO<Long> register(UserRegisterDto userRegisterDto) {
         return new ResultVO<>(sysUserService.userRegister(userRegisterDto));

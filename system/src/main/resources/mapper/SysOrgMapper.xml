@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeus.system.mapper.SysOrgMapper">
+
+    <resultMap id="BaseResultMap" type="com.zeus.system.entity.SysOrg">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="orgCode" column="org_code" jdbcType="VARCHAR"/>
+            <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+            <result property="upCode" column="up_code" jdbcType="VARCHAR"/>
+            <result property="upAllCode" column="up_all_code" jdbcType="VARCHAR"/>
+            <result property="orgLevel" column="org_level" jdbcType="INTEGER"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="linkman" column="linkman" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createOrg" column="create_org" jdbcType="BIGINT"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,org_code,org_name,
+        up_code,up_all_code,org_level,
+        address,linkman,phone,
+        sort,del_flag,create_user,
+        create_time,update_user,update_time,
+        create_org,remark,tenant_id
+    </sql>
+</mapper>
