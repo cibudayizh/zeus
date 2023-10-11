@@ -11,7 +11,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: "jdbc:mysql://xxx.43.114.xxx:3306/zeus"
     username: root
-    password: zzh@123456
+    password: xxx@xxx
   redis:
     #数据库索引
     database: 0
