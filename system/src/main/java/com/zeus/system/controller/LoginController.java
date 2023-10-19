@@ -3,7 +3,7 @@ package com.zeus.system.controller;
 import com.zeus.system.annotation.Permission;
 import com.zeus.system.dto.UserLoginDto;
 import com.zeus.system.dto.UserRegisterDto;
-import com.zeus.system.service.SysUserService;
+import com.zeus.system.service.UserService;
 import com.zeus.system.utils.RedisUtil;
 import com.zeus.system.vo.common.ResultVO;
 import io.swagger.annotations.Api;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @Autowired
-    private SysUserService sysUserService;
+    private UserService userService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -31,14 +31,14 @@ public class LoginController {
     @PostMapping("/v1/login")
     @Permission(checkPermission = false)
     public ResultVO<String> login(UserLoginDto userLoginDto) {
-        return new ResultVO<>(sysUserService.userLogin(userLoginDto));
+        return new ResultVO<>(userService.userLogin(userLoginDto));
     }
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/v1/register")
     @Permission(checkPermission = false)
     public ResultVO<Long> register(UserRegisterDto userRegisterDto) {
-        return new ResultVO<>(sysUserService.userRegister(userRegisterDto));
+        return new ResultVO<>(userService.userRegister(userRegisterDto));
     }
 
     @GetMapping("/redis/{key}/{value}")

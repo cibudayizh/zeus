@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeus.system.mapper.SysTenantMapper">
+
+    <resultMap id="BaseResultMap" type="com.zeus.system.entity.SysTenant">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="contact_user_id" column="contact_user_id" jdbcType="BIGINT"/>
+            <result property="contact_name" column="contact_name" jdbcType="VARCHAR"/>
+            <result property="contact_mobile" column="contact_mobile" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="domain" column="domain" jdbcType="VARCHAR"/>
+            <result property="package_id" column="package_id" jdbcType="BIGINT"/>
+            <result property="expire_time" column="expire_time" jdbcType="TIMESTAMP"/>
+            <result property="account_count" column="account_count" jdbcType="INTEGER"/>
+            <result property="create_user" column="create_user" jdbcType="BIGINT"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_user" column="update_user" jdbcType="BIGINT"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="del_flag" column="del_flag" jdbcType="TINYINT"/>
+            <result property="create_org" column="create_org" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,contact_user_id,
+        contact_name,contact_mobile,status,
+        domain,package_id,expire_time,
+        account_count,create_user,create_time,
+        update_user,update_time,del_flag,
+        create_org
+    </sql>
+</mapper>

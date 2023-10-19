@@ -27,6 +27,10 @@ import java.util.Set;
 @Component
 public class PermissionListener implements ApplicationListener<ApplicationStartedEvent> {
 
+    /**
+     * 启动扫描注解
+     * @param event the event to respond to
+     */
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
 

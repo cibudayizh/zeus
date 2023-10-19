@@ -1,6 +1,6 @@
 package com.zeus.system.service.impl;
 
-import com.zeus.system.service.SysOrgService;
+import com.zeus.system.service.OrgService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-07-11 16:32:04
 */
 @Service
-public class SysOrgServiceImpl implements SysOrgService{
+public class OrgServiceImpl implements OrgService {
 
 }
 

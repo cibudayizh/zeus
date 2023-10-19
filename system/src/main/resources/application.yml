@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /${spring.application.name}
 spring:
+  profiles:
+    active: dev
   application:
     name: system
   datasource:
@@ -29,9 +31,10 @@ spring:
         min-idle: 0
         #连接超时时间
     timeout: 10000
-  profiles:
-    active: dev
-#  token密钥
+
+token:
+  #  token密钥
   secret: asdfzcxzcv
-#  token过期时间 毫秒
+  #  token过期时间 毫秒
   expired: 600000
+  checkToken: false

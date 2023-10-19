@@ -26,6 +26,9 @@ public class UserVo {
     @ApiModelProperty(value = "所属部门ID")
     private Long orgId;
 
+    /**
+     * 部门名称
+     */
     @ApiModelProperty(value = "部门名称")
     private String orgName;
 

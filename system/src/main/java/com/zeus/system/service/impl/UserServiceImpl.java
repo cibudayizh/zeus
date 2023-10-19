@@ -9,9 +9,10 @@ import com.zeus.system.dto.UserRegisterDto;
 import com.zeus.system.entity.SysUser;
 import com.zeus.system.exception.BusinessException;
 import com.zeus.system.mapper.SysUserMapper;
-import com.zeus.system.service.SysUserService;
+import com.zeus.system.service.UserService;
 import com.zeus.system.utils.RedisUtil;
 import com.zeus.system.utils.ZeusJwtUtil;
+import com.zeus.system.vo.UserVo;
 import com.zeus.system.vo.common.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.zeus.system.constants.RedisPrefixConstant.PWD_ERR_CNT_KEY;
-import static com.zeus.system.constants.RedisPrefixConstant.USER_TOKEN_PREFIX;
+import static com.zeus.system.constants.RedisPrefixConstant.*;
 import static com.zeus.system.constants.TableFiledConstant.DEL_FLAG;
 
 /**
@@ -29,7 +29,7 @@ import static com.zeus.system.constants.TableFiledConstant.DEL_FLAG;
  * @createDate 2023-02-07 16:16:35
  */
 @Service
-public class SysUserServiceImpl implements SysUserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -89,6 +89,15 @@ public class SysUserServiceImpl implements SysUserService {
         String userTokenKey = USER_TOKEN_PREFIX.concat(String.valueOf(sysUser.getId()));
         redisUtil.setCacheObject(userTokenKey, token, timeOut, TimeUnit.MILLISECONDS);
         return token;
+    }
+
+    @Override
+    public UserVo getUser(Long userId) {
+        UserVo userVo = redisUtil.getCacheObject(USER_INFORMATION_PREFIX + userId);
+        if (userVo!=null){
+            return userVo;
+        }
+        return null;
     }
 }
 

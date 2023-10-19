@@ -13,6 +13,7 @@ import com.zeus.system.utils.WebContextUtil;
 import com.zeus.system.utils.ZeusJwtUtil;
 import com.zeus.system.vo.common.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,8 +40,13 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Value("${token.checkToken}")
+    private boolean checkToken;
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
+        if(!checkToken){
+            return true;
+        }
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
             return true;
@@ -59,7 +65,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 //        String token   ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzU5MzMyMTQsIm5iZiI6MTY3NTkzMzIxNCwiZXhwIjoxNjc1OTMzODE0LCJ1c2VySWQiOjE2MjI4OTkwNTkwODAxMjY0NjQsInRlbmFudElkIjowfQ.Hj8pdSbDSA-jKKusoBgypKCLmNDeYPQJomKO_O7SbRI";
         // 执行认证 校验token是否有效
         if (StrUtil.isEmpty(token)||!zeusJwtUtil.verity(token)) {
-            throw new ForbiddenException(ResultVO.FORBIDDEN.getCode());
+            throw new ForbiddenException(ResultVO.FORBIDDEN.getMessage());
         }
         UserInformationDto userInformationDto = zeusJwtUtil.parseToken(token);
         String userTokenId = USER_TOKEN_PREFIX.concat(String.valueOf(userInformationDto.getUserId()));
