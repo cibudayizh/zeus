@@ -83,7 +83,6 @@ public class UserServiceImpl implements UserService {
 
             throw new BusinessException(ResultVO.ARGUMENT_ILLEGAL.getCode(), "用户名密码错误");
         }
-
         //生成token
         String token = zeusJwtUtil.sign(sysUser.getId(), sysUser.getTenantId());
         String userTokenKey = USER_TOKEN_PREFIX.concat(String.valueOf(sysUser.getId()));
@@ -93,11 +92,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVo getUser(Long userId) {
+        //先看redis缓存里有没有
         UserVo userVo = redisUtil.getCacheObject(USER_INFORMATION_PREFIX + userId);
         if (userVo!=null){
             return userVo;
         }
-        return null;
+        UserVo userInfo = sysUserMapper.getUserInfo(userId);
+        String userToken = redisUtil.getCacheObject(USER_TOKEN_PREFIX + userId);
+        userInfo.setToken(userToken);
+        return userInfo;
     }
 }
 

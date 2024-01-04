@@ -11,7 +11,7 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="type" column="type" jdbcType="VARCHAR"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="phonenumber" column="phonenumber" jdbcType="VARCHAR"/>
+            <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
             <result property="sex" column="sex" jdbcType="CHAR"/>
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
@@ -29,10 +29,17 @@
     <sql id="Base_Column_List">
         id,org_id,account,
         name,type,email,
-        phonenumber,sex,avatar,
+        phone_number,sex,avatar,
         password,status,del_flag,
         login_ip,login_date,create_user,
         create_time,update_user,update_time,
         remark
     </sql>
+    <select id="getUserInfo" resultType="com.zeus.system.vo.UserVo">
+        select t1.id,t1.name,t1.org_id,t1.account,t1.type,t1.email,t1.phone_number,t1.sex,t1.avatar,t1.status,t1.login_ip,t1.login_date,
+               t1.tenant_id,t2.org_name,t3.name
+        from sys_user t1 left join sys_org t2 on t1.org_id=t2.id
+                left join sys_tenant t3 on t1.tenant_id = t3.id
+        WHERE t1.id=#{userId}
+    </select>
 </mapper>

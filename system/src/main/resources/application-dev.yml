@@ -9,13 +9,13 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: "jdbc:mysql://xxx.43.114.xxx:3306/zeus"
+    url: "jdbc:mysql://101.43.114.106:3306/zeus"
     username: root
     password: xxx@xxx
   redis:
     #数据库索引
     database: 0
-    host: xxx.43.114.xxx
+    host: 101.43.114.106
     port: 6379
     password: xxx@xxx
     jedis:
@@ -30,3 +30,9 @@ spring:
         min-idle: 0
         #连接超时时间
     timeout: 10000
+token:
+    #  token密钥
+    secret: xxx@xxx
+    #  token过期时间 毫秒
+    expired: 600000
+    checkToken: true

@@ -8,9 +8,11 @@ import com.zeus.system.entity.SysUser;
 import com.zeus.system.exception.BusinessException;
 import com.zeus.system.exception.ForbiddenException;
 import com.zeus.system.mapper.SysUserMapper;
+import com.zeus.system.service.UserService;
 import com.zeus.system.utils.RedisUtil;
 import com.zeus.system.utils.WebContextUtil;
 import com.zeus.system.utils.ZeusJwtUtil;
+import com.zeus.system.vo.UserVo;
 import com.zeus.system.vo.common.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.zeus.system.constants.RedisPrefixConstant.USER_TOKEN_PREFIX;
 
@@ -35,6 +39,9 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     private SysUserMapper userMapper;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ZeusJwtUtil zeusJwtUtil;
 
     @Autowired
@@ -42,9 +49,18 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     @Value("${token.checkToken}")
     private boolean checkToken;
+
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         if(!checkToken){
+            return true;
+        }
+        List<String> ignorePathList=new ArrayList<>();
+        ignorePathList.add("/login/userLogin");
+        //能够通过的路径
+        String servletPath = httpServletRequest.getServletPath();
+        if(ignorePathList.contains(servletPath)){
             return true;
         }
         // 如果不是映射到方法直接通过
@@ -64,28 +80,28 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         String token = httpServletRequest.getHeader(ZeusJwtUtil.AUTH_HEADER_KEY);
 //        String token   ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzU5MzMyMTQsIm5iZiI6MTY3NTkzMzIxNCwiZXhwIjoxNjc1OTMzODE0LCJ1c2VySWQiOjE2MjI4OTkwNTkwODAxMjY0NjQsInRlbmFudElkIjowfQ.Hj8pdSbDSA-jKKusoBgypKCLmNDeYPQJomKO_O7SbRI";
         // 执行认证 校验token是否有效
-        if (StrUtil.isEmpty(token)||!zeusJwtUtil.verity(token)) {
+        if (StrUtil.isEmpty(token)&&!zeusJwtUtil.verity(token)) {
             throw new ForbiddenException(ResultVO.FORBIDDEN.getMessage());
         }
         UserInformationDto userInformationDto = zeusJwtUtil.parseToken(token);
-        String userTokenId = USER_TOKEN_PREFIX.concat(String.valueOf(userInformationDto.getUserId()));
+        String userTokenKey = USER_TOKEN_PREFIX.concat(String.valueOf(userInformationDto.getUserId()));
         //判断redis中该用户token是否存在
-        if(redisUtil.hasKey(userTokenId)){
+        if(redisUtil.hasKey(userTokenKey)){
             //存在判断redis中token和现有token是否一致 禁止多端登录 后续若允许多端登录可以将key设置为不同
-            String userRedisToken = redisUtil.getCacheObject(userTokenId);
+            String userRedisToken = redisUtil.getCacheObject(userTokenKey);
             if(!token.equals(userRedisToken)){
                 //两个token 不一致返回无权限
-                throw new ForbiddenException(ResultVO.FORBIDDEN.getCode());
+                throw new ForbiddenException(ResultVO.FORBIDDEN.getMessage());
             }
         }else {
             //不存在直接返回无权限
-            throw new ForbiddenException(ResultVO.FORBIDDEN.getCode());
+            throw new ForbiddenException(ResultVO.FORBIDDEN.getMessage());
         }
-        SysUser sysUser = userMapper.selectById(userInformationDto.getUserId());
-        if (sysUser == null) {
+        UserVo userVo = userService.getUser(userInformationDto.getUserId());
+        if (userVo == null) {
             throw new BusinessException(ResultVO.FORBIDDEN.getCode(),"用户不存在，请重新登录");
         }
-        WebContextUtil.setUserInfo(sysUser);
+        WebContextUtil.setUserInfo(userVo);
         return true;
     }
 

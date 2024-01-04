@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @GetMapping("/getUserInfo")
-    public ResultVO<UserVo> getUserInfo(@RequestParam("userId")Long userId){
+    public ResultVO<UserVo> getUserInfo(@RequestParam(value = "userId") Long userId){
         return new ResultVO<>(userService.getUser(userId));
     }
 

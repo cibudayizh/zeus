@@ -1,7 +1,8 @@
 package com.zeus.system.utils;
 
 
-import com.zeus.system.entity.SysUser;
+
+import com.zeus.system.vo.UserVo;
 
 /**
  * @Author: zhangliang
@@ -13,23 +14,23 @@ public class WebContextUtil {
     /**
      * 本地线程缓存用户信息名称
      */
-    private static ThreadLocal<SysUser> local = new ThreadLocal<>();
+    private static ThreadLocal<UserVo> local = new ThreadLocal<>();
     /**
      * 设置user信息
-     * @param user
+     * @param userVo
      */
-    public static void setUserInfo(SysUser user){
+    public static void setUserInfo(UserVo userVo){
         removeUserInfo();
-        local.set(user);
+        local.set(userVo);
     }
     /**
      * 获取user信息
      * @return
      */
-    public static SysUser getUserInfo(){
+    public static UserVo getUserInfo(){
         if(local.get() != null){
-            SysUser user = local.get();
-            return user;
+            UserVo userVo = local.get();
+            return userVo;
         }
         return null;
     }

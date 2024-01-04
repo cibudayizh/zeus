@@ -28,14 +28,14 @@ public class LoginController {
     private RedisUtil redisUtil;
 
     @ApiOperation(value = "用户登录")
-    @PostMapping("/v1/login")
+    @PostMapping("/userLogin")
     @Permission(checkPermission = false)
     public ResultVO<String> login(UserLoginDto userLoginDto) {
         return new ResultVO<>(userService.userLogin(userLoginDto));
     }
 
     @ApiOperation(value = "用户注册")
-    @PostMapping("/v1/register")
+    @PostMapping("/userRegister")
     @Permission(checkPermission = false)
     public ResultVO<Long> register(UserRegisterDto userRegisterDto) {
         return new ResultVO<>(userService.userRegister(userRegisterDto));

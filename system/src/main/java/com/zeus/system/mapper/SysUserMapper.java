@@ -2,6 +2,8 @@ package com.zeus.system.mapper;
 
 import com.zeus.system.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zeus.system.vo.UserVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Administrator
@@ -11,6 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    /**
+     * 通过用户id查询用户详情信息
+     * @param userId 用户id
+     * @return
+     */
+    UserVo getUserInfo(@Param("userId")Long userId);
 }
 
 

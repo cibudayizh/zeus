@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhuzihang
@@ -32,6 +33,11 @@ public class UserVo {
     @ApiModelProperty(value = "部门名称")
     private String orgName;
 
+    /**
+     * 用户角色集合
+     */
+    @ApiModelProperty(value = "用户角色集合")
+    private List<UserRoleVo> userRoleList;
     /**
      * 用户账号
      */
@@ -98,4 +104,17 @@ public class UserVo {
      */
     @ApiModelProperty(value = "用户token")
     private String token;
+
+    /**
+     * 租户id
+     */
+    @ApiModelProperty(value = "租户id")
+    private Long tenantId;
+
+
+    /**
+     * 租户名称
+     */
+    @ApiModelProperty(value = "租户名称")
+    private String tenantName;
 }

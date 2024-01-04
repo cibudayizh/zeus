@@ -87,7 +87,7 @@ public class ZeusJwtUtil {
 
         UserInformationDto userInformationDto=new UserInformationDto();
         userInformationDto.setUserId(Long.valueOf(String.valueOf(jwt.getPayload("userId"))));
-        userInformationDto.setUserId(Long.valueOf(String.valueOf(jwt.getPayload("tenantId"))));
+        userInformationDto.setTenantId(Long.valueOf(String.valueOf(jwt.getPayload("tenantId"))));
         return userInformationDto;
     }
 }
